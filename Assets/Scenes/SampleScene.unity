@@ -399,6 +399,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chatInput: {fileID: 19133988}
   chatDisplay: {fileID: 268177304}
+  scrollRect: {fileID: 1127536842}
 --- !u!1 &268177303
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,8 +465,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1579,7 +1580,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -199.99998}
+  m_AnchoredPosition: {x: 0, y: -199.9995}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1448784263
@@ -1595,7 +1596,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
-  m_VerticalFit: 1
+  m_VerticalFit: 2
 --- !u!114 &1448784264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1795,7 +1796,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1741574275}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99981016
+  m_Size: 0.99993426
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
