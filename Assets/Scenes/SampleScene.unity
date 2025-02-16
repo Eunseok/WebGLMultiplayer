@@ -695,7 +695,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 873045576}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: FirebaseRestAPI, Assembly-CSharp
         m_MethodName: SendMessageToFirebase
         m_Mode: 1
@@ -858,28 +858,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 873045577}
-  - component: {fileID: 873045576}
+  - component: {fileID: 873045578}
   m_Layer: 5
-  m_Name: FirebaseManager
+  m_Name: DatabaseManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &873045576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 873045575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97c8a62d184cf408e98a709d2a425f79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chatInput: {fileID: 19133988}
-  chatDisplay: {fileID: 268177304}
 --- !u!224 &873045577
 RectTransform:
   m_ObjectHideFlags: 0
@@ -899,6 +885,19 @@ RectTransform:
   m_AnchoredPosition: {x: 622, y: 350}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &873045578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873045575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4af89dc6c9e054aa69bfef8525a3b759, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  databaseUrl: https://multiplayergame-eec4e-default-rtdb.firebaseio.com
 --- !u!1 &1020328313
 GameObject:
   m_ObjectHideFlags: 0
@@ -1533,7 +1532,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -199.99998}
+  m_AnchoredPosition: {x: 0, y: -199.9996}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1448784263
@@ -1749,7 +1748,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1741574275}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99971956
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
