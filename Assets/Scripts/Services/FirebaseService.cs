@@ -1,7 +1,8 @@
 using System;
 using Proyecto26;
-using System.Threading.Tasks;
 using UnityEngine;
+using Newtonsoft.Json; // 추가
+
 
 public class FirebaseService
 {
@@ -26,17 +27,43 @@ public class FirebaseService
             .Catch(error => { Debug.LogError($"❌ 데이터 업데이트 실패: {error.Message}"); });
     }
 
-    public void Get<T>(string path, System.Action<T> onSuccess, Action<Exception> onError)
+    public void Get<T>(string path, Action<T> onSuccess, Action<Exception> onError)
     {
-        RestClient.Get<T>($"{_baseUrl}/{path}.json")
+        RequestHelper requestOptions = new RequestHelper
+        {
+            Uri = $"{_baseUrl}/{path}.json",
+            EnableDebug = true // 디버깅 활성화
+        };
+
+        RestClient.Get(requestOptions)
             .Then(response =>
             {
-                Debug.Log("✅ 데이터 불러오기 성공!");
-                onSuccess?.Invoke(response);
+                string jsonData = response.Text ?? response.ToString(); // JSON 데이터 가져오기
+                Debug.Log($"Firebase 원본 JSON 데이터: {jsonData}");
+
+                try
+                {
+                    var data = JsonConvert.DeserializeObject<T>(jsonData);
+
+                    if (data != null)
+                    {
+                        Debug.Log($"📜 JSON 변환 성공! 변환된 데이터 타입: {typeof(T)}");
+                        onSuccess?.Invoke(data);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("JSON 변환은 성공했지만, 데이터가 null입니다.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError($"JSON 변환 실패: {ex.Message}");
+                    onError?.Invoke(ex);
+                }
             })
             .Catch(error =>
             {
-                Debug.LogError($"❌ 데이터 불러오기 실패: {error.Message}");
+                Debug.LogError($"Firebase 데이터 가져오기 실패: {error.Message}");
                 onError?.Invoke(error);
             });
     }
