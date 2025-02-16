@@ -1,5 +1,4 @@
 using System;
-using Models;
 using Newtonsoft.Json;
 using Proyecto26;
 using UnityEngine;
@@ -8,7 +7,7 @@ namespace Services
 {
     public class FirebaseService
     {
-        private readonly string _baseUrl;
+        readonly string _baseUrl;
 
         public FirebaseService(string baseUrl)
         {
@@ -40,7 +39,6 @@ namespace Services
             RestClient.Get(requestOptions)
                 .Then(response =>
                 {
-                    string jsonData = response.Text ?? response.ToString(); // JSON 데이터 가져오기
                     var data = JsonConvert.DeserializeObject<T>(response.Text);
 
                     if (data != null)

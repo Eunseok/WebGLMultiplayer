@@ -1,44 +1,50 @@
-using System;
 using Services;
 using UnityEngine;
 
-public class DatabaseManager : MonoBehaviour
+namespace Managers
 {
-    // 싱글톤 인스턴스
-    public static DatabaseManager Instance { get; private set; }
-
-    FirebaseService _firebaseService;
-    UserService _userService;
-    MessageService _messageService;
-
-    [SerializeField] string databaseUrl = "https://multiplayergame-eec4e-default-rtdb.firebaseio.com";
-
-    void Awake()
+    public class DatabaseManager : MonoBehaviour
     {
-        // 싱글톤 인스턴스 설정
-        if (Instance != null && Instance != this)
+        // 싱글톤 인스턴스
+        public static DatabaseManager Instance { get; private set; }
+
+        FirebaseService _firebaseService;
+        UserService _userService;
+        MessageService _messageService;
+
+        [SerializeField] string databaseUrl = "https://multiplayergame-eec4e-default-rtdb.firebaseio.com";
+
+        void Awake()
         {
-            Destroy(gameObject); // 이미 인스턴스가 있으면 파괴
-            return;
+            // 싱글톤 인스턴스 설정
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject); // 이미 인스턴스가 있으면 파괴
+                return;
+            }
+
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // 다른 씬에서도 유지
+
+            InitializeServices();
+
+#if UNITY_WEBGL
+            Application.runInBackground = true; // 웹GL 백그라운드 실행 허용
+#endif
         }
 
-        Instance = this;
-        DontDestroyOnLoad(gameObject); // 다른 씬에서도 유지
+        void InitializeServices()
+        {
+            // FirebaseService 초기화
+            _firebaseService = new FirebaseService(databaseUrl);
 
-        InitializeServices();
+            // 각 서비스 초기화
+            _userService = new UserService(_firebaseService);
+            _messageService = new MessageService(_firebaseService);
+        }
+
+        // 전역 서비스 접근자
+        public UserService UserService => _userService;
+        public MessageService MessageService => _messageService;
     }
-
-    void InitializeServices()
-    {
-        // FirebaseService 초기화
-        _firebaseService = new FirebaseService(databaseUrl);
-
-        // 각 서비스 초기화
-        _userService = new UserService(_firebaseService);
-        _messageService = new MessageService(_firebaseService);
-    }
-
-    // 전역 서비스 접근자
-    public UserService UserService => _userService;
-    public MessageService MessageService => _messageService;
 }
